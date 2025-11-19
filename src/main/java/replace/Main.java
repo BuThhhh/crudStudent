@@ -1,5 +1,6 @@
 package replace;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Scanner;
 
 class Student{
@@ -57,6 +58,7 @@ class Student{
         System.out.println();
         for(int i=0;i<count;i++){
             stu[i].output();
+            System.out.println();
         }
     }
 
@@ -99,8 +101,35 @@ class Student{
         }
         System.out.println((!check)?"UPDATE COMPLETE":"UPDATE NOT COMPLETE");
     }
-}
+    public static void delete(String names, Student[] stu){
+        boolean check=false;
+        for (int i=0;i<count;i++){
+            if(stu[i].getName().equalsIgnoreCase(names)){
+                for(int j=0;j<count-1;j++){
+                    stu[j]=stu[j+1];
+                }
+                --count;
+                check=true;
+            }
+        }
+        System.out.println((!check)?"DELETE NOT COMPLETE":"DELETE COMPLETE");
+    }
+    public static void sort(Student[] stu){
+        boolean check=false;
 
+        for(int i=0;i<count;i++){
+            for(int j=0;j<count-1;j++){
+                if(stu[j].getName().compareToIgnoreCase(stu[j+1].getName())>0) {
+                    Student temp = stu[j];
+                    stu[j] = stu[j + 1];
+                    stu[j + 1] = temp;
+                    check = true;
+                }
+            }
+        }
+        System.out.println((!check)?"SORT NOT COMPLETE":"SORT COMPLETE");
+    }
+}
 public class Main {
     public static void main(String[] args) {
         Student[] storage=new Student[10];
@@ -132,6 +161,19 @@ public class Main {
                     System.out.println("Update by name : ");
                     String names =Student.sc.nextLine();
                     Student.update(names,storage);
+                }
+                case 5 ->{
+                    Student.sc.nextLine();
+                    System.out.print("Delete by name : ");
+                    String names =Student.sc.nextLine();
+                    Student.delete(names,storage);
+                }
+                case 6 ->{
+                    Student.sort(storage);
+                }
+                case 7->{
+                    System.out.println("Goodbye!");
+                    return;
                 }
             }
         }
